@@ -66,6 +66,13 @@ jobs:
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin release
 
+      - name: Delete existing release
+        run: |
+          gh release delete ${{ env.TAG_NAME }} --yes || true
+          gh api repos/${{ github.repository }}/git/refs/tags/${{ env.TAG_NAME }} -X DELETE || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload assets to release
         uses: svenstaro/upload-release-action@v2
         with:
