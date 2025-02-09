@@ -14,6 +14,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Set variables
         run: |
           echo "RELEASE_NAME=Dat Files Release" >> $GITHUB_ENV
@@ -33,7 +38,7 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version-file: ./geodat2srs/go.mod
-          cache-dependency-path: ./geoip/go.sum
+          cache-dependency-path: ./geodat2srs/go.sum
 
       - name: Collect files
         run: |
