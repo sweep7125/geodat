@@ -72,12 +72,12 @@ jobs:
           git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
           git push -f -u origin release
 
-      - name: Update release and upload assets
+      - name: Create or update release and upload assets
         run: |
           if ! gh release view "${{ env.TAG_NAME }}" > /dev/null 2>&1; then
             gh release create "${{ env.TAG_NAME }}" -t "${{ env.RELEASE_NAME }}" -n "Release generated automatically" --target release --draft=false
           fi
-          gh release upload "${{ env.TAG_NAME }}" ./publish/* --clobber
+          gh release upload "${{ env.TAG_NAME }}" $(find ./publish -type f) --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
