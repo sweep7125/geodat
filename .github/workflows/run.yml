@@ -17,7 +17,7 @@ jobs:
       - name: Checkout codebase
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Set variables
         run: |
@@ -33,6 +33,7 @@ jobs:
         with:
           repository: runetfreedom/geodat2srs
           path: geodat2srs
+          fetch-depth: 1
 
       - name: Set up Go
         uses: actions/setup-go@v5
