@@ -79,6 +79,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Create release
+        run: |
+          gh release create ${{ env.TAG_NAME }} \
+            -t "${{ env.RELEASE_NAME }}" \
+            -n "Release generated automatically" \
+            --target release \
+            --draft=false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload assets to release
         uses: svenstaro/upload-release-action@v2
         with:
